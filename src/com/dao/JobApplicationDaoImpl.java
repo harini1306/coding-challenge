@@ -1,11 +1,11 @@
 package com.dao;
 
 import java.sql.Connection;
-
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +44,32 @@ public class JobApplicationDaoImpl implements JobApplicationDao {
 
 	DBUtility.dbClose();
 	return (list);
+	}
+
+	@Override
+	public void createApplicant(int jobId, int appId, LocalDate appdate, String coverLetter) throws SQLException {
+		Connection conn = DBUtility.getDBConn();
+
+		String sql = "insert into job_app (job_id,applicant_id,appdate,cover_letter)values(?,?,?,?)";
+
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+
+	
+		
+
+		pstmt.setInt(1, jobId);
+		pstmt.setInt(2, appId);
+		pstmt.setDate(3, Date.valueOf(appdate));
+		pstmt.setString(4, coverLetter);
+	
+		
+
+		pstmt.executeUpdate();
+
+		DBUtility.dbClose();
+		
+	
+		
 	}
 
 }

@@ -27,23 +27,9 @@ public class JobListingService {
 
 	}
 
-	public double calculateSalary(List<JobListing> list, int id) throws SQLException, SalaryCalculationHandlingException, DatabaseConnectionException {
-		  List<JobListing> list1 =jobListingDao.fetchAllJobs();
-	        double totalSalary = 0;
-	        int validCount = 0;
-
-	        for (JobListing j : list1) {
-	            if (j.getSalary() < 0) {
-	                throw new SalaryCalculationHandlingException("Invalid salary for job listing at ");
-	            } else {
-	                totalSalary += j.getSalary();
-	                validCount++;
-	            }
-	        }
-
-	        System.out.println( totalSalary / validCount);
-	        return totalSalary / validCount;
-	        
+	public double calculateSalary(List<JobListing> list, int id,double averageSalary) throws SQLException, SalaryCalculationHandlingException, DatabaseConnectionException {
+		jobListingDao.calculateSalary(list, id,averageSalary);
+		return averageSalary;
 	    }
 
 	public void updateJob(int cid, String jobtitle, String jobDescription, String location, double salary,

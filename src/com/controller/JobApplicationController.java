@@ -1,6 +1,8 @@
 package com.controller;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,6 +21,8 @@ public class JobApplicationController {
 		while(true) {
 			System.out.println("applicatantdetails");
 			System.out.println("press 1 view applicantdetails");
+			System.out.println("press 2 to add new Applicant");
+			
 			
 			System.out.println("press 0 to exit");
 			
@@ -43,8 +47,28 @@ public class JobApplicationController {
 					        a.getId(),a.getJobId(),a.getApplicantId(),a.getCoverLetter()));
 
 				
-				
-			
+				break;
+			case 2:
+				 
+					 System.out.println("new Appicant's application form");
+						System.out.println("Enter jobId");
+						int jobId=sc.nextInt();
+						System.out.println("Enter ApplicantId:");
+						int appId=sc.nextInt();
+						System.out.println("Enter date");
+						sc.nextLine(); 
+						
+						String dateInput = sc.nextLine();
+						System.out.println("Input received: " + dateInput); 
+						LocalDate appdate = LocalDate.parse(dateInput);
+
+						System.out.println("Enter CoverLetter");
+						String coverLetter=sc.next();
+						
+						jobApplicationService.createApplicant(jobId,appId,appdate,coverLetter);
+						System.out.println("Registration Successfull!!");
+				       
+				 
 						
 			}		
 			

@@ -55,8 +55,25 @@ public class JobListingDaoImpl implements JobListingDao {
 }
 
 	@Override
-	public void calculateSalary(List<JobListing> list, int id) throws SQLException, SalaryCalculationHandlingException {
+	public void calculateSalary(List<JobListing> list, int id,double avgSalary) throws SQLException, SalaryCalculationHandlingException {
+		Connection conn = DBUtility.getDBConn();
+
+		String sql = "select avg(salary) from joblisting where id=?";
+
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		 pstmt.setInt(1, id); 
+
+		ResultSet rst = pstmt.executeQuery();
+		 if (rst.next()) {
+	            rst.getDouble(1);
+	           
+	        }
 		
+		pstmt.execute();
+		DBUtility.dbClose();
+
+	
+
 	}
 
 	@Override

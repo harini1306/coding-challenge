@@ -1,6 +1,7 @@
 package com.service;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.dao.JobApplicationDao;
@@ -27,6 +28,13 @@ public class JobApplicationService {
 				return a;
 	}
 		return null;
+	}
+
+	
+
+	public void createApplicant(int jobId, int appId, LocalDate appdate, String coverLetter) throws SQLException {
+		jobAppdao.createApplicant(jobId,appId,appdate,coverLetter);
+		
 	}
 
 }

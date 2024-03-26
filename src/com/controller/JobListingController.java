@@ -1,7 +1,7 @@
 package com.controller;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,6 +23,7 @@ public class JobListingController {
 				System.out.println("press 1 list All Jobs");
 				System.out.println("press 2 calculate avg salary");
 				System.out.println("press 3 to enter new job");
+				
 				System.out.println("press 0 to exit");
 				
 				int input = sc.nextInt();
@@ -50,27 +51,27 @@ public class JobListingController {
 					}
 					
 				case 2:
-					System.out.println("salary details");
+					
 					
 						try {
 							list = jobListingtService.fetchAllJobs();
 						
-						System.out.println("enter Account id");
+						System.out.println("enter Account company id");
 						int id=sc.nextInt();
 					
-						 jobListingtService.calculateSalary(list,id);
+						 double avgSalary = 0;
+						jobListingtService.calculateSalary(list,id, avgSalary);
 						}
 						 catch (SalaryCalculationHandlingException e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
-					
-								
+							
 					 catch (SQLException e) {
-						// TODO Auto-generated catch block
+						
 						e.printStackTrace();
 					}
-				
+				break;
 				
 				case 3:
 					System.out.println("new job lists");
@@ -92,6 +93,7 @@ public class JobListingController {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+			
 					
 					
 					

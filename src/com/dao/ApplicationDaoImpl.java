@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exception.FileUploadException;
 import com.exception.InvalidEmailFormatHandlingException;
 import com.model.Application;
 
@@ -48,7 +49,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
 	}
 
 	@Override
-	public void registerApplicant(String firstName, String lastName, String email, String phoneNumber, String resume) throws SQLException,InvalidEmailFormatHandlingException{
+	public void registerApplicant(String firstName, String lastName, String email, String phoneNumber, String resume) throws SQLException,InvalidEmailFormatHandlingException,FileUploadException{
 		Connection conn = DBUtility.getDBConn();
 
 		String sql = "INSERT INTO application (firstname, lastname, email, phone, resume) values(?,?,?,?,?)";

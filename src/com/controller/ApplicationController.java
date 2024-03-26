@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.exception.DatabaseConnectionException;
+import com.exception.FileUploadException;
 import com.exception.InvalidEmailFormatHandlingException;
 import com.model.Application;
 
@@ -36,13 +38,19 @@ public class ApplicationController {
 						list = applicationService.fetchAllApplication();
 						System.out.println("enter Account id");
 						int id=sc.nextInt();
-						Application a= applicationService.fetchAllApplicationById(list,id);
+					Application a;
+					try {
+						a = applicationService.fetchAllApplicationById(list,id);
 						System.out.println(String.format("%-15s%-15s%-15s%-15s%-15s%-15s",
 						        "id", "firstName", "lastName", "email", "phone", "resume"));
 
 						System.out.println(String.format("%-15d%-15s%-15s%-15s%-15s%-15s",
 						        a.getId(), a.getFirstName(), a.getLastName(), a.getEmail(), a.getPhone(), a.getResume()));
-
+					} catch (DatabaseConnectionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+						
 				case 2:
 					System.out.println("registration process");
 					
@@ -58,9 +66,14 @@ public class ApplicationController {
 					String resume=sc.next();
 					
 					
-					try {
-						applicationService.registerApplicant(firstName,lastName,email,phoneNumber,resume);
-						System.out.println("Registration Successfull!!");
+					
+						try {
+							applicationService.registerApplicant(firstName,lastName,email,phoneNumber,resume);
+							System.out.println("Registration Successfull!!");
+						} catch (SQLException | FileUploadException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						
 					
 					} catch (InvalidEmailFormatHandlingException e) {
 						// TODO Auto-generated catch block
